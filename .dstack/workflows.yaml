@@ -3,8 +3,6 @@ workflows:
     provider: python
     requirements: requirements.txt
     python_script: train.py
-    depends-on:
-      - download-mnist
     artifacts:
       - model
     resources:
