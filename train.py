@@ -1,4 +1,5 @@
 import torch
+import os
 from torch import nn
 from torch.nn import functional as F
 from torch.utils.data import DataLoader
@@ -55,6 +56,6 @@ val_loader = DataLoader(mnist_val, batch_size=32)
 model = LitAutoEncoder()
 
 # training
-trainer = pl.Trainer(gpus=0, num_nodes=8, precision=16, limit_train_batches=0.5)
+trainer = pl.Trainer(gpus=os.environ.get("GPU"), num_nodes=8, precision=16, limit_train_batches=0.5)
 trainer.fit(model, train_loader, val_loader)
     
