@@ -49,13 +49,13 @@ class LitAutoEncoder(pl.LightningModule):
 dataset = MNIST('', train=True, download=True, transform=transforms.ToTensor())
 mnist_train, mnist_val = random_split(dataset, [55000, 5000])
 
-train_loader = DataLoader(mnist_train, batch_size=os.environ.get("BATCH_SIZE"))
-val_loader = DataLoader(mnist_val, batch_size=os.environ.get("BATCH_SIZE"))
+train_loader = DataLoader(mnist_train, batch_size=32)
+val_loader = DataLoader(mnist_val, batch_size=32)
 
 # model
 model = LitAutoEncoder()
 
 # training
-trainer = pl.Trainer(gpus=os.environ.get("GPU"), num_nodes=8, precision=16, limit_train_batches=0.5, max_epochs=2)
+trainer = pl.Trainer(gpus=0, num_nodes=8, precision=16, limit_train_batches=0.5, max_epochs=2)
 trainer.fit(model, train_loader, val_loader)
     
